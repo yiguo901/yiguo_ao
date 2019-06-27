@@ -16,6 +16,7 @@ import sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+#加载到python解释器
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 sys.path.insert(1, os.path.join(BASE_DIR, 'extrapps'))
 
@@ -28,7 +29,7 @@ SECRET_KEY = 'spb#rr92)%rvdlu_r_(ngb41$@)e!8om85r_kx63lsasucj#r&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -82,11 +83,17 @@ WSGI_APPLICATION = 'yiguo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yiguo',
+        'NAME': 'yg_api_db',
         'HOST':'localhost',
         'PORT':3306,
         'USER':'root',
-        'PASSWORD':'123456'
+        'PASSWORD':'123456',
+        'charset':'utf8'
+        # 'NAME': 'yg_api',
+        # 'HOST':'localhost',
+        # 'PORT':3306,
+        # 'USER':'root',
+        # 'PASSWORD':'123456'
     }
 }
 
