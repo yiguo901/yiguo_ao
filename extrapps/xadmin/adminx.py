@@ -1,32 +1,79 @@
 from __future__ import absolute_import
 import xadmin
-from .models import UserSettings, Log
-from xadmin.layout import *
+# Register your models here.
+from mainapp.models import *
+from xadmin import views
 
-from django.utils.translation import ugettext_lazy as _, ugettext
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
 
-class UserSettingsAdmin(object):
-    model_icon = 'fa fa-cog'
-    hidden_menu = True
 
-xadmin.site.register(UserSettings, UserSettingsAdmin)
+class GlobalSetting(object):
+    site_title = '易果生鲜管理系统'
+    site_footer = '个人网站'
+    site_url = '/'
+    menu_style = 'accordion'
 
-class LogAdmin(object):
+class YGMainAdmin(object):
+    pass
 
-    def link(self, instance):
-        if instance.content_type and instance.object_id and instance.action_flag != 'delete':
-            admin_url = self.get_admin_url('%s_%s_change' % (instance.content_type.app_label, instance.content_type.model), 
-                instance.object_id)
-            return "<a href='%s'>%s</a>" % (admin_url, _('Admin Object'))
-        else:
-            return ''
-    link.short_description = ""
-    link.allow_tags = True
-    link.is_column = False
 
-    list_display = ('action_time', 'user', 'ip_addr', '__str__', 'link')
-    list_filter = ['user', 'action_time']
-    search_fields = ['ip_addr', 'message']
-    model_icon = 'fa fa-cog'
+class UserAdmin(object):
+    list_display = ['id','u_phone','nickname','level',
+                    'gender','u_auth_string','idcard']
+    search_fields = ['nickname','gender']
+    list_filter = ['nickname','level','gender']
+    ordering = ('id',)
+    list_per_page = 30
+    model_icon = 'fa fa-check-square'
 
-xadmin.site.register(Log, LogAdmin)
+class OrderAdmin(object):
+    pass
+
+class CartAdmin(object):
+    pass
+
+class GoodsAdmin(object):
+    pass
+
+
+class WheelAdmin(object):
+    pass
+
+class ChosenAdmin(object):
+    pass
+
+class NavAdmin(object):
+    pass
+
+class NavDetailAdmin(object):
+    pass
+
+class AddressAdmin(object):
+    pass
+
+class OrderDetailAdmin(object):
+    pass
+
+class CommentAdmin(object):
+    pass
+
+class EatAdmin(object):
+    pass
+
+xadmin.site.register(YGUser,UserAdmin)
+xadmin.site.register(YGEat,EatAdmin)
+xadmin.site.register(YGOrder,OrderAdmin)
+xadmin.site.register(YGOderDetail,OrderDetailAdmin)
+xadmin.site.register(YGCart,CartAdmin)
+xadmin.site.register(YGNav,NavAdmin)
+xadmin.site.register(YGWheel,WheelAdmin)
+xadmin.site.register(YGComment,CommentAdmin)
+xadmin.site.register(YGAddress,AddressAdmin)
+xadmin.site.register(YGNavDetail,NavDetailAdmin)
+xadmin.site.register(YGGoods,GoodsAdmin)
+xadmin.site.register(YGChosen,ChosenAdmin)
+
+xadmin.site.register(views.CommAdminView,GlobalSetting)
+xadmin.site.register(views.BaseAdminView,BaseSetting)
