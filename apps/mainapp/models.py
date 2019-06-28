@@ -5,9 +5,9 @@ from django.db import models
 
 
 class YGMain(models.Model):
-    img = models.CharField(max_length=2000, verbose_name='图片')
-    name = models.CharField(max_length=100, verbose_name='图片名称')
-    trackid = models.IntegerField(verbose_name='图片ID')
+    img_url = models.CharField(max_length=2000, verbose_name='图片')
+    img_name = models.CharField(max_length=100, verbose_name='图片名称')
+    track_id = models.IntegerField(verbose_name='图片ID')
 
     class Meta:
         abstract = True  # 抽象类
@@ -74,10 +74,10 @@ class YGUser(models.Model):
     )
     u_phone = models.CharField(max_length=30, verbose_name='手机号码')
     nickname = models.CharField(max_length=20, verbose_name='昵称', null=True)  # 昵称
-    gender = models.CharField(choices=GENDER_CHOICE, verbose_name='性别',max_length=10,default=0)
+    gender = models.CharField(choices=GENDER_CHOICE, verbose_name='性别',max_length=10,default='0')
     u_auth_string = models.CharField(max_length=256, verbose_name='用户密码')
     idcard = models.CharField(max_length=20, verbose_name='身份证', null=True)  # 身份证
-    img = models.ImageField(verbose_name='用户头像',upload_to='img/%Y/%m/%d')  # 用户图像
+    img = models.ImageField(verbose_name='用户头像',upload_to='img/%Y/%m/%d',default='')  # 用户图像
     balance = models.FloatField(verbose_name='账户余额', default=0.00)
     level = models.CharField(max_length=20, verbose_name='用户等级', default='普通会员')
 
@@ -91,6 +91,7 @@ class YGUser(models.Model):
 class YGAddress(models.Model):
     user = models.ForeignKey(YGUser, on_delete=models.CASCADE, verbose_name='用户ID')
     address = models.CharField(max_length=500, verbose_name='用户地址')
+    add_time = models.DateTimeField(verbose_name='注册时间',auto_now_add=True)
 
     class Meta:
         db_table = 'address'
@@ -102,7 +103,8 @@ class YGCart(models.Model):
     c_user = models.ForeignKey(YGUser, on_delete=models.CASCADE,verbose_name='用户ID')
     c_goods = models.ForeignKey(YGGoods, on_delete=models.CASCADE,verbose_name='商品ID')
     c_goods_num = models.IntegerField(default=1,verbose_name='商品数量')
-    c_is_select = models.BooleanField(default=True,verbose_name='是否选中')  # 是否选中，默认为选中
+    c_is_select = models.BooleanField(default=False,verbose_name='是否选中')  # 是否选中，默认为选中
+    total_price = models.FloatField(default=0.00,verbose_name='总价格')
 
     class Meta:
         db_table = 'cart'
@@ -137,8 +139,8 @@ class YGOrder(models.Model):
     # (6,'已下单已付款已发货已收货已确认已评价'),)
     o_user = models.ForeignKey(YGUser, on_delete=models.CASCADE, verbose_name='用户ID')
     o_price = models.FloatField(verbose_name='总价格')
-    o_time = models.DateTimeField(auto_now=True, verbose_name='下单时间')
-    o_status = models.IntegerField(choices=ORDER_STATUS,default=ORDER_STATUS[0], verbose_name='订单状态')
+    o_time = models.DateTimeField(auto_now_add=True, verbose_name='下单时间')
+    o_status = models.IntegerField(choices=ORDER_STATUS,default=0, verbose_name='订单状态')
 
     class Meta:
         db_table = 'ygorders'
@@ -170,13 +172,19 @@ class YGComment(models.Model):
 
 class YGEat(models.Model):
     eat_img = models.CharField(max_length=256, verbose_name='图片')
-    eat_content = models.CharField(max_length=200, verbose_name='描述')
-    eat_time = models.CharField(max_length=50, verbose_name='时间')
+    eat_contribute = models.CharField(max_length=200, verbose_name='描述')
+    action_time = models.CharField(max_length=50, verbose_name='时间')
+    action_name = models.CharField(max_length=50,verbose_name='活动名称')
 
     class Meta:
         db_table = 'ygeat'
         verbose_name = '吃喝玩乐'
         verbose_name_plural = verbose_name
+
+
+# class VipLevel(models.Model):
+#     id = models.ForeignKey(YGUser,on_delete=models.CASCADE,verbose_name='用户id')
+#     consume_num = models.FloatField(verbose_name='消费总金额')
 
 
 
