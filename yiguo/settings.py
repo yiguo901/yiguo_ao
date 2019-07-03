@@ -41,9 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mainapp',
+    'home',
+    'eat',
+    'goods',
+    'order',
+    'user',
     'xadmin',
     'crispy_forms',
+    'DjangoUeditor',
 ]
 
 MIDDLEWARE = [
