@@ -38,6 +38,7 @@ class Child(models.Model):
     child_name = models.CharField(max_length=50, verbose_name='二级分类')
     child_id = models.IntegerField(verbose_name='分类id')
     category_id = models.IntegerField(verbose_name='一级分类id')
+    child_img = models.CharField(max_length=200,verbose_name='类图片')
 
     class Meta:
         db_table = 'child'

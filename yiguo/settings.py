@@ -88,17 +88,18 @@ WSGI_APPLICATION = 'yiguo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'yg_api_db',
-        'HOST':'localhost',
-        'PORT':3306,
-        'USER':'root',
-        'PASSWORD':'123456',
-        'charset':'utf8'
-        # 'NAME': 'yg_api',
+        # 'NAME': 'yg_api_db',
         # 'HOST':'localhost',
         # 'PORT':3306,
         # 'USER':'root',
-        # 'PASSWORD':'123456'
+        # 'PASSWORD':'123456',
+        # 'charset':'utf8'
+        'NAME': 'yg_api_db',
+        'HOST':'121.199.63.71',
+        'PORT':3306,
+        'USER':'ygadmin',
+        'PASSWORD':'yg1176',
+        'charset':'utf8'
     }
 }
 

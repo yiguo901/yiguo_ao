@@ -41,9 +41,9 @@ class YGNavDetail(YGMain):
 class Place(models.Model):  # 全国各大城市
     ISHOT = ((0, '非热门城市'), (1, '热门城市'))
     city_id = models.IntegerField(verbose_name='城市ID')
-    name = models.CharField(max_length=20, verbose_name='城市名称')
+    nm = models.CharField(max_length=20, verbose_name='城市名称')
     ishot = models.IntegerField(choices=ISHOT, default=0, verbose_name='是否热门')
-    py_name = models.CharField(max_length=50, verbose_name='拼音名称')
+    py = models.CharField(max_length=50, verbose_name='拼音名称')
 
     class Meta:
         db_table = 'places'

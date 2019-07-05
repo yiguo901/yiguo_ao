@@ -8,8 +8,8 @@ from user.models import YGUser
 
 
 class UserAdmin(object):
-    list_display = ['id','u_phone','nickname','u_level','create_time',
-                    'gender','u_auth_string','idcard','img']
+    list_display = ['id','u_phone','nickname','u_level',
+                    'gender','idcard','img']
     search_fields = ['nickname','gender']
     list_filter = ['nickname','u_level','gender']
     ordering = ('id',)

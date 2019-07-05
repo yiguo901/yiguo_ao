@@ -20,10 +20,10 @@ class CartAdmin(object):
     model_icon = 'fa fa-check-square'
 
 class AddressAdmin(object):
-    list_display = ['address','create_time']
-    list_filter = ['create_time','update_time']
-    search_field = ['address']
-    ordering = ('create_time',)
+    list_display = ['address_details']
+    list_filter = ['phone_num','addr_type']
+    search_field = ['name']
+    ordering = ('id',)
     list_addr_page = 30
     model_icon = 'fa fa-check-square'
 

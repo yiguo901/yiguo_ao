@@ -3,17 +3,9 @@ from django.db import models
 # Create your models here.
 from user.helper import make_password
 
-class Base(models.Model):
-    create_time = models.DateTimeField(verbose_name='注册时间',
-                                       auto_now_add=True)
-    update_time = models.DateTimeField(verbose_name='更新时间',
-                                       auto_now=True)
-
-    class Meta:
-        abstract = True  # 抽象类
 
 
-class YGUser(Base):
+class YGUser(models.Model):
     level = (('0', '大众会员'), ('1', '白银会员'),
              ('2', '黄金会员'), ('3', '钻石会员'))
     sex = (('male', '男'), ('female', '女'))
@@ -30,11 +22,6 @@ class YGUser(Base):
     is_active = models.BooleanField(verbose_name='是否激活', default=False)
     is_delete = models.BooleanField(verbose_name='是否删除', default=False)
 
-    class Meta:
-        db_table = 'users'
-        verbose_name = '用户表'
-        verbose_name_plural = verbose_name
-
     def __str__(self):
         return self.nickname
 
@@ -43,3 +30,9 @@ class YGUser(Base):
         if len(self.u_auth_string) < 32:
             self.u_auth_string = make_password(self.u_auth_string)
         super().save()
+
+    class Meta:
+        db_table = 'users'
+        verbose_name = '用户表'
+        verbose_name_plural = verbose_name
+

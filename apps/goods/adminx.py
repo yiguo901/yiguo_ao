@@ -4,7 +4,7 @@ from goods.models import *
 
 # Register your models here.
 class GoodsAdmin(object):
-    list_display = ['id', 'name', 'price', 'detail_name', 'pro_addr','goods_wheel_img']
+    list_display = ['id', 'name', 'price', 'detail_name', 'pro_addr','stock']
     search_fields = ['name', 'category_name','child_name']
     list_filter = ['sale', 'stock']
     ordering = ('id',)
